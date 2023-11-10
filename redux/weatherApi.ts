@@ -1,15 +1,8 @@
 import {createApi, fetchBaseQuery, BaseQueryFn, FetchArgs} from '@reduxjs/toolkit/query/react';
-import {TLocation, Weather} from '../types/types';
+import {ICustomError, TLocation, Weather} from '../types/types';
 
 const WEATHER_API = 'https://api.openweathermap.org/data/2.5';
 const API_KEY = '291ac51ddab2b5ccb5165b5619b5c1eb';
-
-export interface ICustomError {
-  data: {
-    message: string;
-  };
-  status: number;
-}
 
 export const weatherApi = createApi({
   reducerPath: 'weatherApi',
