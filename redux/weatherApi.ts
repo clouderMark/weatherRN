@@ -2,7 +2,8 @@ import {createApi, fetchBaseQuery, BaseQueryFn, FetchArgs} from '@reduxjs/toolki
 import {ICustomError, TLocation, Weather} from '../types/types';
 
 const WEATHER_API = 'https://api.openweathermap.org/data/2.5';
-const API_KEY = '291ac51ddab2b5ccb5165b5619b5c1eb';
+// eslint-disable-next-line prefer-destructuring
+const API_KEY = process.env.API_KEY;
 
 export const weatherApi = createApi({
   reducerPath: 'weatherApi',
