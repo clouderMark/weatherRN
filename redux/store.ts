@@ -1,6 +1,7 @@
 import {Middleware, configureStore} from '@reduxjs/toolkit';
 import {weatherApi} from './weatherApi';
 import {geoApi} from './geoApi';
+import {positionSlice} from './positionSlice';
 
 const middlewares: Middleware[] = [];
 
@@ -14,9 +15,12 @@ export const store = configureStore({
   reducer: {
     [weatherApi.reducerPath]: weatherApi.reducer,
     [geoApi.reducerPath]: geoApi.reducer,
+    position: positionSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middlewares).concat(weatherApi.middleware).concat(geoApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(middlewares).concat(weatherApi.middleware).concat(geoApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
