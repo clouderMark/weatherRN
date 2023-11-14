@@ -18,7 +18,7 @@ const initialState: TInitialState = {
 export const getCurrentPosition = createAsyncThunk(
   'currentPosition/get',
   async () =>
-    new Promise<{latitude: number; longitude: number}>((resolve) => {
+    new Promise<TPosition>((resolve) => {
       new Promise<void>((resolve) => {
         if (Platform.OS === 'ios') {
           Geolocation.requestAuthorization('whenInUse').then((x) => {
