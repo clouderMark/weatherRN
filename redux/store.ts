@@ -3,6 +3,7 @@ import {weatherApi} from './weatherApi';
 import {geoApi} from './geoApi';
 import {positionSlice} from './positionSlice';
 import {colorSchemeSlice} from './colorSchemeSlice';
+import {systemLocale} from './systemLocale';
 
 const middlewares: Middleware[] = [];
 
@@ -18,6 +19,7 @@ export const store = configureStore({
     [geoApi.reducerPath]: geoApi.reducer,
     position: positionSlice.reducer,
     colorScheme: colorSchemeSlice.reducer,
+    systemLocale: systemLocale.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
