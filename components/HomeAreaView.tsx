@@ -5,6 +5,7 @@ import {useAppDispatch, useAppSelector} from '../redux/hooks';
 import {selectPosition} from '../redux/positionSlice';
 import {useGetWeatherMutation} from '../redux/weatherApi';
 import {selectMode, setDarkMode} from '../redux/colorSchemeSlice';
+import {selectLocale} from '../redux/systemLocale';
 
 interface ITime {
   time: number;
@@ -16,15 +17,16 @@ const getTime = (data: ITime): Date => new Date((data.time + data.timezone) * 10
 const HomeAreaView = ({children}: PropsWithChildren): JSX.Element => {
   const dispatch = useAppDispatch();
   const {position} = useAppSelector(selectPosition);
+  const {locale} = useAppSelector(selectLocale);
   const [getWeather, {data: weatherData, isSuccess: isWeatherSuccess}] = useGetWeatherMutation();
   const isDark = useColorScheme() === 'dark';
   const isDarkMode = useAppSelector(selectMode);
 
   useEffect(() => {
-    if (position) {
-      getWeather(position);
+    if (position && locale) {
+      getWeather({position, lang: locale});
     }
-  }, [position]);
+  }, [position, locale]);
 
   useEffect(() => {
     if (isWeatherSuccess && weatherData) {
