@@ -23,6 +23,9 @@ const initialState: IInitialState = {
   degree: '°',
 };
 
+interface IDefaultValue {min: number, max: number}
+const defaultValue = {min: 0, max: 0};
+
 const Weather = () => {
   const {position} = useAppSelector(selectPosition);
   const {locale} = useAppSelector(selectLocale);
@@ -38,16 +41,30 @@ const Weather = () => {
 
   useEffect(() => {
     if (isWeatherSuccess && weatherData) {
-      const dataWeather = weatherData.weather[0].description;
+      const dataWeather = weatherData.list[0].weather[0].description;
+      const minMaxTemp: IDefaultValue = weatherData.list.reduce((values: IDefaultValue, el) => {
+        const min = el.main.temp_min;
+        const max = el.main.temp_max;
+
+        if (values.min === 0) {
+          values.min = min;
+        } else if (values.min > min) {
+          values.min = min;
+        } else if (values.max < max) {
+          values.max = max;
+        }
+
+        return values;
+      }, defaultValue);
 
       setWeather({
         weather: dataWeather[0].toUpperCase() + dataWeather.slice(1),
-        temp: Math.round(weatherData.main.temp),
-        minTemp: Math.round(weatherData.main.temp_min),
-        maxTemp: Math.round(weatherData.main.temp_max),
+        temp: Math.round(weatherData.list[0].main.temp),
+        minTemp: Math.round(minMaxTemp.min),
+        maxTemp: Math.round(minMaxTemp.max),
         degree: locale === 'ru' ? '°' : '℉',
       });
-    } else console.log('geoData is empty');
+    } else console.log('weatherData is empty');
   }, [isWeatherSuccess]);
 
   const textColor = {

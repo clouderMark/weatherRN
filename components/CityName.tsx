@@ -22,7 +22,7 @@ const CityName = () => {
 
   useEffect(() => {
     if (isWeatherSuccess && weatherData) {
-      const cityName = weatherData.name;
+      const cityName = weatherData.city.name;
 
       if (cityName) setCity(cityName);
     } else console.log('geoData is empty');

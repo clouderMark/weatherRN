@@ -30,9 +30,9 @@ const HomeAreaView = ({children}: PropsWithChildren): JSX.Element => {
 
   useEffect(() => {
     if (isWeatherSuccess && weatherData) {
-      const sunrice = getTime({time: weatherData.sys.sunrise, timezone: weatherData.timezone});
-      const sunset = getTime({time: weatherData.sys.sunset, timezone: weatherData.timezone});
-      const today = new Date(Date.now() + weatherData.timezone * 1000);
+      const sunrice = getTime({time: weatherData.city.sunrise, timezone: weatherData.city.timezone});
+      const sunset = getTime({time: weatherData.city.sunset, timezone: weatherData.city.timezone});
+      const today = new Date(Date.now() + weatherData.city.timezone * 1000);
       // const today = new Date('2023-11-15T12:16:38.090Z');
       // console.log({sunrice, sunset, today});
 

@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery, BaseQueryFn, FetchArgs} from '@reduxjs/toolkit/query/react';
-import {ICustomError, TPosition, Weather, Welcome} from '../types/types';
+import {ICustomError, IWeather, TPosition, Welcome} from '../types/types';
 
 const WEATHER_API = 'https://api.openweathermap.org';
 // eslint-disable-next-line prefer-destructuring
@@ -22,9 +22,9 @@ export const weatherApi = createApi({
     credentials: 'include',
   }) as BaseQueryFn<string | FetchArgs, unknown, ICustomError, {}>,
   endpoints: (builder) => ({
-    getWeather: builder.mutation<Weather, IProps>({
+    getWeather: builder.mutation<IWeather, IProps>({
       query: (props) => ({
-        url: `data/2.5/weather?lat=${props.position.latitude}&lon=${props.position.longitude}&appid=${API_KEY}&lang=${props.lang}&units=${props.lang === 'ru' ? 'metric' : 'imperial'}`, // eslint-disable-line
+        url: `data/2.5/forecast?lat=${props.position.latitude}&lon=${props.position.longitude}&appid=${API_KEY}&lang=${props.lang}&units=${props.lang === 'ru' ? 'metric' : 'imperial'}`, // eslint-disable-line
         method: 'GET',
       }),
     }),

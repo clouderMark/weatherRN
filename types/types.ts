@@ -12,59 +12,75 @@ export type ICustomError = {
 };
 
 // That is interface for data which get from wheater api
-export interface Weather {
-  coord: Coord;
-  weather: WeatherElement[];
-  base: string;
-  main: Main;
-  visibility: number;
-  wind: Wind;
-  rain: {[key: string]: number};
-  clouds: Clouds;
-  dt: number;
-  sys: Sys;
-  timezone: number;
-  id: number;
-  name: string;
-  cod: number;
+export interface IWeather {
+  cod: string;
+  message: number;
+  cnt: number;
+  list: IList[];
+  city: ICity;
 }
 
-export interface Clouds {
+export interface ICity {
+  id: number;
+  name: string;
+  coord: ICoord;
+  country: string;
+  population: number;
+  timezone: number;
+  sunrise: number;
+  sunset: number;
+}
+
+export interface ICoord {
+  lat: number;
+  lon: number;
+}
+
+export interface IList {
+  dt: number;
+  main: IMain;
+  weather: IWeatherElement[];
+  clouds: IClouds;
+  wind: IWind;
+  visibility: number;
+  pop: number;
+  rain?: IRain;
+  sys: ISys;
+  dt_txt: Date;
+}
+
+export interface IClouds {
   all: number;
 }
 
-export interface Coord {
-  lon: number;
-  lat: number;
-}
-
-export interface Main {
+export interface IMain {
   temp: number;
   feels_like: number;
   temp_min: number;
   temp_max: number;
   pressure: number;
-  humidity: number;
   sea_level: number;
   grnd_level: number;
+  humidity: number;
+  temp_kf: number;
 }
 
-export interface Sys {
-  type: number;
-  id: number;
-  country: string;
-  sunrise: number;
-  sunset: number;
+export interface IRain {
+  [key: string]: number;
 }
 
-export interface WeatherElement {
+export interface ISys {
+  pod: string;
+}
+
+export interface IWeatherElement {
   id: number;
   main: string;
   description: string;
   icon: string;
 }
 
-export interface Wind {
+export interface IWind {
   speed: number;
   deg: number;
   gust: number;
