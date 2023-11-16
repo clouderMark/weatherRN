@@ -1,33 +1,32 @@
 import {useEffect, useState} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {useGetGeoMutation} from '../redux/geoApi';
 import {useAppSelector} from '../redux/hooks';
 import {selectPosition} from '../redux/positionSlice';
 import {selectMode} from '../redux/colorSchemeSlice';
+import {useGetWeatherMutation} from '../redux/weatherApi';
+import {selectLocale} from '../redux/systemLocale';
 
 const CityName = () => {
   const {position} = useAppSelector(selectPosition);
-  const [getGeo, {data: geoData, isSuccess: isGeoSuccess}] = useGetGeoMutation();
+  const {locale} = useAppSelector(selectLocale);
+  const [getWeather, {data: weatherData, isSuccess: isWeatherSuccess}] = useGetWeatherMutation();
   const [city, setCity] = useState('Город не опреден');
   const isDarkMode = useAppSelector(selectMode);
 
   useEffect(() => {
     if (position) {
-      getGeo(position);
+      getWeather({position, lang: locale});
     }
   }, [position]);
 
   useEffect(() => {
-    if (isGeoSuccess && geoData) {
-      const cityName = // eslint-disable-next-line
-        geoData.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.Components.at(
-          -1,
-        )?.name;
+    if (isWeatherSuccess && weatherData) {
+      const cityName = weatherData.name;
 
-      if (cityName) setCity(cityName.replace('город', ''));
+      if (cityName) setCity(cityName);
     } else console.log('geoData is empty');
-  }, [isGeoSuccess]);
+  }, [isWeatherSuccess]);
 
   const textColor = {
     color: isDarkMode ? Colors.lighter : Colors.dark,

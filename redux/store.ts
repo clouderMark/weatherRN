@@ -1,6 +1,5 @@
 import {Middleware, configureStore} from '@reduxjs/toolkit';
 import {weatherApi} from './weatherApi';
-import {geoApi} from './geoApi';
 import {positionSlice} from './positionSlice';
 import {colorSchemeSlice} from './colorSchemeSlice';
 import {systemLocale} from './systemLocale';
@@ -16,7 +15,6 @@ if (__DEV__) {
 export const store = configureStore({
   reducer: {
     [weatherApi.reducerPath]: weatherApi.reducer,
-    [geoApi.reducerPath]: geoApi.reducer,
     position: positionSlice.reducer,
     colorScheme: colorSchemeSlice.reducer,
     systemLocale: systemLocale.reducer,
@@ -26,8 +24,7 @@ export const store = configureStore({
       serializableCheck: false,
     })
       .concat(middlewares)
-      .concat(weatherApi.middleware)
-      .concat(geoApi.middleware),
+      .concat(weatherApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
