@@ -69,3 +69,14 @@ export interface Wind {
   deg: number;
   gust: number;
 }
+
+// position from city name
+
+export interface Welcome {
+  name: string;
+  local_names?: {[key: string]: string};
+  lat: number;
+  lon: number;
+  country: string;
+  state: string;
+}
