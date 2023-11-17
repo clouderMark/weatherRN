@@ -7,6 +7,7 @@ import HomeAreaView from './HomeAreaView';
 import CityName from './CityName';
 import Weather from './Weather';
 import {selectLocale, setLocale} from '../redux/systemLocale';
+import WeatherForTheDay from './weatherForTheDay/WeatherForTheDay';
 
 function Home(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ function Home(): JSX.Element {
       <View>
         <CityName />
         <Weather />
+        <WeatherForTheDay />
       </View>
     </HomeAreaView>
   );
