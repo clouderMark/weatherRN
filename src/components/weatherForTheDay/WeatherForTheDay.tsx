@@ -1,35 +1,27 @@
-import {useEffect} from 'react';
 import {Image, StyleSheet, Text, View, FlatList} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {useGetWeatherMutation} from '../../redux/weatherApi';
+import {selectWetherData} from '../../redux/weatherApi';
 import {useAppSelector} from '../../redux/hooks';
-import {selectPosition} from '../../redux/positionSlice';
 import {selectLocale} from '../../redux/systemLocale';
 import {selectMode} from '../../redux/colorSchemeSlice';
 import {getImage} from './getImage';
 
 const WeatherForTheDay = () => {
-  const [get, {data, isSuccess}] = useGetWeatherMutation();
-  const {position} = useAppSelector(selectPosition);
+  const {list} = useAppSelector(selectWetherData);
   const {locale} = useAppSelector(selectLocale);
   const isDarkMode = useAppSelector(selectMode);
 
-  useEffect(() => {
-    if (position && locale) {
-      get({position, lang: locale});
-    }
-  }, [position, locale]);
-
   const textColor = {
+    // new Date(item.dt_txt).getHours()
     color: isDarkMode ? Colors.lighter : Colors.dark,
   };
 
   return (
     <View style={styles.container}>
-      {isSuccess ? (
+      {list.length ? (
         <FlatList
           nestedScrollEnabled
-          data={data!.list}
+          data={list}
           horizontal
           renderItem={({item, index}) => (
             <View style={styles.item}>
