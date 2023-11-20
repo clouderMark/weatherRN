@@ -26,10 +26,12 @@ const getSystemLocale = (): string => {
 
 interface IInitialState {
   locale: string;
+  degree: '°' | '℉';
 }
 
 const initialState: IInitialState = {
   locale: '',
+  degree: '°',
 };
 
 export const systemLocale = createSlice({
@@ -40,6 +42,7 @@ export const systemLocale = createSlice({
       const lang = getSystemLocale();
 
       [state.locale] = lang.split('-');
+      state.degree = state.locale === 'ru' ? '°' : '℉';
     },
   },
 });

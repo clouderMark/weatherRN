@@ -1,5 +1,5 @@
 import {Middleware, configureStore} from '@reduxjs/toolkit';
-import {weatherApi} from './weatherApi';
+import {weatherApi, weatherSlice} from './weatherApi';
 import {positionSlice} from './positionSlice';
 import {colorSchemeSlice} from './colorSchemeSlice';
 import {systemLocale} from './systemLocale';
@@ -15,6 +15,7 @@ if (__DEV__) {
 export const store = configureStore({
   reducer: {
     [weatherApi.reducerPath]: weatherApi.reducer,
+    weather: weatherSlice.reducer,
     position: positionSlice.reducer,
     colorScheme: colorSchemeSlice.reducer,
     systemLocale: systemLocale.reducer,
