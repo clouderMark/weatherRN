@@ -1,16 +1,13 @@
 import {StyleSheet, Text} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {useAppSelector} from '../redux/hooks';
 import {selectMode} from '../redux/colorSchemeSlice';
 import {selectWetherData} from '../redux/weatherApi';
+import {getTextColorForMode} from './getTextColorForMode';
 
 const CityName = () => {
   const isDarkMode = useAppSelector(selectMode);
   const {name} = useAppSelector(selectWetherData).city;
-
-  const textColor = {
-    color: isDarkMode ? Colors.lighter : Colors.dark,
-  };
+  const textColor = getTextColorForMode(isDarkMode);
 
   return <Text style={[textColor, styles.text]}>{name || 'Город не опреден'}</Text>;
 };

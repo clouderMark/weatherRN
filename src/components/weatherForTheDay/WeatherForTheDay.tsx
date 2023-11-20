@@ -1,20 +1,16 @@
 import {Image, StyleSheet, Text, View, FlatList} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {selectWetherData} from '../../redux/weatherApi';
 import {useAppSelector} from '../../redux/hooks';
 import {selectLocale} from '../../redux/systemLocale';
 import {selectMode} from '../../redux/colorSchemeSlice';
 import {getImage} from './getImage';
+import {getTextColorForMode} from '../getTextColorForMode';
 
 const WeatherForTheDay = () => {
   const {list} = useAppSelector(selectWetherData);
   const {locale} = useAppSelector(selectLocale);
   const isDarkMode = useAppSelector(selectMode);
-
-  const textColor = {
-    // new Date(item.dt_txt).getHours()
-    color: isDarkMode ? Colors.lighter : Colors.dark,
-  };
+  const textColor = getTextColorForMode(isDarkMode);
 
   return (
     <View style={styles.container}>
