@@ -1,11 +1,9 @@
-import {Image, ImageSourcePropType, Text, View} from 'react-native';
+import {ImageSourcePropType} from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
-import {selectMode} from '../../redux/colorSchemeSlice';
 import {selectLocale} from '../../redux/systemLocale';
-import {styles} from './styles';
 import {sunrice as sunriceImage, sunset as sunsetImage} from '../../image';
-import {getTextColorForMode} from '../getTextColorForMode';
 import {ELang} from '../../types/types';
+import Item from './Item';
 
 interface IData {
   ru: string;
@@ -28,22 +26,22 @@ interface IProps {
 
 const SunAction = (props: IProps) => {
   const {when, data} = props;
-  const isDarkMode = useAppSelector(selectMode);
-  const textColor = getTextColorForMode(isDarkMode);
   const {locale} = useAppSelector(selectLocale);
 
   const isNow: boolean = data.action(when);
 
   return isNow ? (
-    <View style={styles.item}>
-      <Text style={textColor}>{`${Math.trunc(when / 60)}:${when % 60}`}</Text>
-      <Image style={styles.image} source={data.image} />
-      <Text style={textColor}>{locale === ELang.RU ? data.ru : data.foreign}</Text>
-    </View>
+    <Item
+      head={`${Math.trunc(when / 60)}:${when % 60}`}
+      image={data.image}
+      footer={locale === ELang.RU ? data.ru : data.foreign}
+    />
   ) : null;
 };
 
+// prettier-ignore
 export const isSunrice = (itemTime: number) => (when: number): boolean => itemTime > when && when + 180 > itemTime;
+// prettier-ignore
 export const isSunset = (itemTime: number) => (when: number): boolean => itemTime < when && itemTime + 180 > when;
 
 export const sunriceMessage: IObjData = {ru: 'Восход', foreign: 'Sunrice', image: sunriceImage, action: isSunrice};

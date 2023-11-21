@@ -1,14 +1,12 @@
-import {Image, Text, View} from 'react-native';
 import {useAppSelector} from '../../redux/hooks';
 import {selectWetherData} from '../../redux/weatherApi';
-import {getTextColorForMode} from '../getTextColorForMode';
-import {selectMode, selectSunAction} from '../../redux/colorSchemeSlice';
+import {selectSunAction} from '../../redux/colorSchemeSlice';
 import {selectLocale} from '../../redux/systemLocale';
 import {getImage} from './getImage';
 import {getTime} from '../getTime';
-import {styles} from './styles';
 import {ELang} from '../../types/types';
 import SunAction, {sunriceMessage, sunsetMessage} from './SunAction';
+import Item from './Item';
 
 interface IProps {
   dt: number;
@@ -19,7 +17,6 @@ const WeatherForHours = (props: IProps) => {
   const {dt, isFirst} = props;
   const {locale} = useAppSelector(selectLocale);
   const {list} = useAppSelector(selectWetherData);
-  const isDarkMode = useAppSelector(selectMode);
   const {timezone} = useAppSelector(selectWetherData).city;
 
   const item = list.find((el) => el.dt === dt);
@@ -27,7 +24,6 @@ const WeatherForHours = (props: IProps) => {
   const {sunrice, sunset} = useAppSelector(selectSunAction);
 
   if (item) {
-    const textColor = getTextColorForMode(isDarkMode);
     const itemTime = getTime(item.dt, timezone);
     const itemTimeInMinutes = itemTime.getUTCHours() * 60 + itemTime.getMinutes();
 
@@ -45,15 +41,12 @@ const WeatherForHours = (props: IProps) => {
           when={sunriceInMinutes}
           data={{...sunriceMessage, action: sunriceMessage.action(itemTimeInMinutes)}}
         />
-        <View style={styles.item}>
-          <Text style={textColor}>{isFirst ? (locale === ELang.RU ? 'Сейчас' : 'now') : itemTime.getUTCHours()}</Text>
-          <Image style={styles.image} source={getImage(item.weather[0].description, locale, isDay)} />
-          <Text style={textColor}>{item.main.temp.toFixed()}</Text>
-        </View>
-        <SunAction
-          when={sunsetInMinutes}
-          data={{...sunsetMessage, action: sunsetMessage.action(itemTimeInMinutes)}}
+        <Item
+          head={isFirst ? (locale === ELang.RU ? 'Сейчас' : 'now') : `${itemTime.getUTCHours()}`}
+          image={getImage(item.weather[0].description, locale, isDay)}
+          footer={item.main.temp.toFixed()}
         />
+        <SunAction when={sunsetInMinutes} data={{...sunsetMessage, action: sunsetMessage.action(itemTimeInMinutes)}} />
       </>
     );
   }
