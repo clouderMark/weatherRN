@@ -13,9 +13,7 @@ import {
   heavyRain,
 } from '../../image';
 
-export const getImage = (type: string, lang: string, date: Date): ImageSourcePropType => {
-  const dt = new Date(date);
-  const isDay = dt;
+export const getImage = (type: string, lang: string, isDay: boolean): ImageSourcePropType => {
   let imageAddress: ImageSourcePropType = sunny;
 
   if (lang === 'ru' && isDay) {
