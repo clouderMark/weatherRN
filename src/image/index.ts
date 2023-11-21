@@ -14,4 +14,7 @@ export const littleRain = require('./littleRain.png');
 export const rain = require('./rain.png');
 export const heavyRain = require('./heavyRain.png');
 
+export const sunrice = require('./sunrice.png');
+export const sunset = require('./sunset.png');
+
 /* eslint-enable global-require */
