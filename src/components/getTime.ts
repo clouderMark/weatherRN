@@ -1,6 +1,1 @@
-interface ITime {
-  time: number;
-  timezone: number;
-}
-
-export const getTime = (data: ITime): Date => new Date((data.time + data.timezone) * 1000);
+export const getTime = (time: number, timezone: number): Date => new Date((time + timezone) * 1000);

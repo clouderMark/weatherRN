@@ -28,7 +28,7 @@ const WeatherForHours = (props: IProps) => {
 
   if (item) {
     const textColor = getTextColorForMode(isDarkMode);
-    const itemTime = getTime({time: item.dt, timezone});
+    const itemTime = getTime(item.dt, timezone);
     const itemTimeInMinutes = itemTime.getUTCHours() * 60 + itemTime.getMinutes();
 
     const sunriceHours = sunrice.getUTCHours();

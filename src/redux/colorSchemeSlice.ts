@@ -30,8 +30,8 @@ export const colorSchemeSlice = createSlice({
   extraReducers(builder) {
     builder.addMatcher(weatherApi.endpoints.getWeather.matchFulfilled, (state, action) => {
       const {payload} = action;
-      const sunrice = getTime({time: payload.city.sunrise, timezone: payload.city.timezone});
-      const sunset = getTime({time: payload.city.sunset, timezone: payload.city.timezone});
+      const sunrice = getTime(payload.city.sunrise, payload.city.timezone);
+      const sunset = getTime(payload.city.sunset, payload.city.timezone);
       const today = new Date(Date.now() + payload.city.timezone * 1000);
       // const today = new Date('2023-11-20T12:16:38.090Z');
 
