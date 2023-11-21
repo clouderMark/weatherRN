@@ -96,3 +96,7 @@ export interface Welcome {
   country: string;
   state: string;
 }
+
+export enum ELang {
+  RU = 'ru',
+}

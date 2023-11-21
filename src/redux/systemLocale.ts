@@ -1,6 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NativeModules} from 'react-native';
 import type {RootState} from './store';
+import {ELang} from '../types/types';
 
 const getSystemLocale = (): string => {
   let locale: string = '';
@@ -42,7 +43,7 @@ export const systemLocale = createSlice({
       const lang = getSystemLocale();
 
       [state.locale] = lang.split('-');
-      state.degree = state.locale === 'ru' ? '°' : '℉';
+      state.degree = state.locale === ELang.RU ? '°' : '℉';
     },
   },
 });

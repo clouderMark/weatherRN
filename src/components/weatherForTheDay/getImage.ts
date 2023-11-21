@@ -12,11 +12,12 @@ import {
   rain,
   heavyRain,
 } from '../../image';
+import {ELang} from '../../types/types';
 
 export const getImage = (type: string, lang: string, isDay: boolean): ImageSourcePropType => {
   let imageAddress: ImageSourcePropType = sunny;
 
-  if (lang === 'ru' && isDay) {
+  if (lang === ELang.RU && isDay) {
     switch (type) {
       case 'ясно': //
         imageAddress = sunny;
@@ -49,7 +50,7 @@ export const getImage = (type: string, lang: string, isDay: boolean): ImageSourc
       default:
         imageAddress = sunny;
     }
-  } else if (lang === 'ru' && !isDay) {
+  } else if (lang === ELang.RU && !isDay) {
     switch (type) {
       case 'ясно': //
         imageAddress = brightNight;

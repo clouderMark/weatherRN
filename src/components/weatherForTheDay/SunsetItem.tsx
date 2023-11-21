@@ -5,6 +5,7 @@ import {selectLocale} from '../../redux/systemLocale';
 import {styles} from './styles';
 import {sunset as image} from '../../image';
 import {getTextColorForMode} from '../getTextColorForMode';
+import {ELang} from '../../types/types';
 
 interface IProps {
   itemTime: number;
@@ -26,7 +27,7 @@ const SunsetItem = (props: IProps) => {
     <View style={styles.item}>
       <Text style={textColor}>{`${sunsetHours}:${sunsetMinutes}`}</Text>
       <Image style={styles.image} source={image} />
-      <Text style={textColor}>{locale === 'ru' ? 'Закат' : 'Sunset'}</Text>
+      <Text style={textColor}>{locale === ELang.RU ? 'Закат' : 'Sunset'}</Text>
     </View>
   ) : null;
 };

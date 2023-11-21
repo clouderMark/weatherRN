@@ -4,6 +4,7 @@ import {selectWetherData} from '../redux/weatherApi';
 import {selectLocale} from '../redux/systemLocale';
 import {selectMode} from '../redux/colorSchemeSlice';
 import {getTextColorForMode} from './getTextColorForMode';
+import {ELang} from '../types/types';
 
 const Weather = () => {
   const {degree, locale} = useAppSelector(selectLocale);
@@ -19,8 +20,8 @@ const Weather = () => {
         {degree}
       </Text>
       <Text style={textColor}>
-        {locale === 'ru' ? 'Макс' : 'Max'}. {maxTemp}
-        {degree}, {locale === 'ru' ? 'мин' : 'min'}. {minTemp}
+        {locale === ELang.RU ? 'Макс' : 'Max'}. {maxTemp}
+        {degree}, {locale === ELang.RU ? 'мин' : 'min'}. {minTemp}
         {degree}
       </Text>
     </View>

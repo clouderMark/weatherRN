@@ -9,6 +9,7 @@ import {getTime} from '../getTime';
 import SunriceItem from './SunriceItem';
 import SunsetItem from './SunsetItem';
 import {styles} from './styles';
+import {ELang} from '../../types/types';
 
 interface IProps {
   dt: number;
@@ -33,7 +34,7 @@ const WeatherForHours = (props: IProps) => {
       <>
         <SunriceItem itemTime={itemTimeInMinutes} />
         <View style={styles.item}>
-          <Text style={textColor}>{isFirst ? (locale === 'ru' ? 'Сейчас' : 'now') : itemTime.getUTCHours()}</Text>
+          <Text style={textColor}>{isFirst ? (locale === ELang.RU ? 'Сейчас' : 'now') : itemTime.getUTCHours()}</Text>
           <Image style={styles.image} source={getImage(item.weather[0].description, locale, true)} />
           <Text style={textColor}>{item.main.temp.toFixed()}</Text>
         </View>

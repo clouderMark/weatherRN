@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery, BaseQueryFn, FetchArgs} from '@reduxjs/toolkit/query/react';
 import {createSlice} from '@reduxjs/toolkit';
-import {ICustomError, IWeather, TPosition, Welcome} from '../types/types';
+import {ELang, ICustomError, IWeather, TPosition, Welcome} from '../types/types';
 import type {RootState} from './store';
 
 const WEATHER_API = 'https://api.openweathermap.org';
@@ -59,7 +59,7 @@ export const weatherApi = createApi({
       query: (props) => ({
         url: `data/2.5/forecast?lat=${props.position.latitude}&lon=${props.position.longitude}&appid=${API_KEY}&lang=${
           props.lang
-        }&units=${props.lang === 'ru' ? 'metric' : 'imperial'}`, // eslint-disable-line
+        }&units=${props.lang === ELang.RU ? 'metric' : 'imperial'}`, // eslint-disable-line
         method: 'GET',
       }),
     }),

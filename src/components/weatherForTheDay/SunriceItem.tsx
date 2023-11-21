@@ -5,6 +5,7 @@ import {selectLocale} from '../../redux/systemLocale';
 import {styles} from './styles';
 import {sunrice as image} from '../../image';
 import {getTextColorForMode} from '../getTextColorForMode';
+import {ELang} from '../../types/types';
 
 interface IProps {
   itemTime: number;
@@ -26,7 +27,7 @@ const SunriceItem = (props: IProps) => {
     <View style={styles.item}>
       <Text style={textColor}>{`${sunriceHours}:${sunriceMinutes}`}</Text>
       <Image style={styles.image} source={image} />
-      <Text style={textColor}>{locale === 'ru' ? 'Восход' : 'Sunrice'}</Text>
+      <Text style={textColor}>{locale === ELang.RU ? 'Восход' : 'Sunrice'}</Text>
     </View>
   ) : null;
 };
